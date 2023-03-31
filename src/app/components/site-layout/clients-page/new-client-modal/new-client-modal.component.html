@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Create new Client</h2>
+<form [formGroup]="createClientForm" (ngSubmit)="createClient()">
+  <mat-dialog-content>
+    <mat-form-field *ngFor="let field of fields">
+      <mat-label>{{ field }}</mat-label>
+      <input matInput formControlName="{{ field }}" />
+      <mat-error *ngIf="createClientForm.get(field)?.invalid">{{
+        getErrorMessage(field)
+      }}</mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick($event)">Cancel</button>
+    <button mat-button type="submit" [disabled]="createClientForm.invalid">
+      Create
+    </button>
+  </mat-dialog-actions>
+</form>

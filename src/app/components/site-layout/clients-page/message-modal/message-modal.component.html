@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Send message to {{ pushData.first_name }}</h2>
+<form [formGroup]="messageForm" (ngSubmit)="pushMessage()">
+  <mat-dialog-content>
+    <mat-form-field>
+      <mat-label>Message</mat-label>
+      <textarea matInput formControlName="message"></textarea>
+      <mat-error *ngIf="messageForm.get('message')?.invalid">{{
+        getErrorMessage("message")
+      }}</mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button (click)="onNoClick($event)">Cancel</button>
+    <button mat-button type="submit" [disabled]="messageForm.invalid">
+      Send
+    </button>
+  </mat-dialog-actions>
+</form>
