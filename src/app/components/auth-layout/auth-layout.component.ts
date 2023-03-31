@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { Router } from "@angular/router";
+import { ActivatedRoute, Params, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { AuthService } from "src/app/services/auth.service";
 
@@ -16,9 +16,18 @@ export class AuthLayoutComponent implements OnDestroy {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private route: ActivatedRoute
   ) {
     this.createForm();
+
+    this.route.queryParams.subscribe((params: Params) => {
+      if (params["accessDenied"]) {
+        console.log("Для начала авторизуйтесь в системе.");
+      } else if (params["sessionFailed"]) {
+        console.log("Пожалуйста, войдите в систему заново");
+      }
+    });
   }
 
   createForm(): void {
@@ -40,7 +49,6 @@ export class AuthLayoutComponent implements OnDestroy {
 
   login(): void {
     this.loginForm.disable();
-    console.log(this.loginForm.value);
     this.aSub = this.authService.login(this.loginForm.value).subscribe(
       () => {
         this.router.navigate(["/clients"]);
