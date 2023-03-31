@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="panel">
+    <mat-form-field appearance="fill">
+      <mat-label>Search</mat-label>
+      <input matInput (keyup)="applyFilter($any($event.target).value)" />
+    </mat-form-field>
+    <div class="btns__panel">
+      <button mat-raised-button color="primary" (click)="newClientDialog()">
+        New Client
+      </button>
+      <button mat-raised-button color="warn" (click)="exitFromPage()">
+        Exit
+      </button>
+    </div>
+  </div>
+  <table
+    mat-table
+    [dataSource]="clientsService.dataClients"
+    matSort
+    [trackBy]="trackByFn"
+  >
+    <ng-container
+      *ngFor="let column of displayedColumns; trackBy: trackByFn; let i = index"
+      [matColumnDef]="column"
+    >
+      <th mat-header-cell *matHeaderCellDef="" mat-sort-header>{{ column }}</th>
+      <td mat-cell *matCellDef="let row" (click)="messageDialog(row)">
+        {{ row[column] }}
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      class="rows"
+    ></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[15]"></mat-paginator>
+</div>

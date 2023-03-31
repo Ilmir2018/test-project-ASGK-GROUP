@@ -1,0 +1,16 @@
+.container {
+  .panel {
+    display: flex;
+    justify-content: space-between;
+
+    .btns__panel {
+      width: 200px;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}
+
+.rows {
+  background-color: bisque;
+}
