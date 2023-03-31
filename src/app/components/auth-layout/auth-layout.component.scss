@@ -1,0 +1,16 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+
+  .container {
+    .container__title {
+      padding-bottom: 20px;
+    }
+  }
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
